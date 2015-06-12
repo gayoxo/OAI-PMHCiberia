@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<collection xmlns="http://www.openarchives.org/OAI/2.0/">
+
+  <!-- FRBR Lookup Demo -->
+  <record>
+    <database:recordid xmlns:database="http://www.oclc.org/pears/">demo/ISBN/0521555132/oai_dc</database:recordid>
+    <header>
+      <identifier>demo/ISBN/0521555132</identifier>
+      <datestamp>2003-03-28</datestamp>
+      <setSpec>Projects</setSpec>
+    </header>
+    <metadata>
+      <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+        <dc:title>Meaning, expression, and thought / Wayne A. Davis</dc:title>
+        <dc:creator>Davis, Wayne A., 1951-</dc:creator>
+        <dc:publisher>Cambridge, U.K. ; New York : Cambridge University Press, 2003</dc:publisher>
+        <dc:description>xvii, 654 p. : ill. ; 24 cm</dc:description>
+        <dc:subject>Semantics (Philosophy)</dc:subject>
+        <dc:subject>Language and languages -- Philosophy</dc:subject>
+        <dc:identifier>http://www.loc.gov/catdir/toc/cam031/2002073478.html</dc:identifier>
+        <dc:identifier>OCLC#: 49991528</dc:identifier>
+        <dc:identifier>ISBN: 0521555132 (hardback)</dc:identifier>
+        <dc:identifier>LCCN: 2002073478</dc:identifier>
+      </oai_dc:dc>
+    </metadata>
+  </record>
+</collection>
