@@ -32,6 +32,7 @@ import java.util.StringTokenizer;
 import java.util.TreeMap;
 import java.util.Vector;
 
+import javax.servlet.ServletContext;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -71,7 +72,7 @@ public class XMLFileOAICatalog extends AbstractCatalog {
     private Transformer getMetadataTransformer = null;
     private boolean schemaLocationIndexed = false;
 
-    public XMLFileOAICatalog(Properties properties) throws IOException {
+    public XMLFileOAICatalog(Properties properties,ServletContext context) throws IOException {
         try {
             String          temp;
 
@@ -120,8 +121,9 @@ public class XMLFileOAICatalog extends AbstractCatalog {
             SAXParser saxParser = factory.newSAXParser();
             InputStream in;
             try {
-                in = new FileInputStream(sourceFile);
+                in = new FileInputStream(context.getRealPath("/")+sourceFile);
             } catch (FileNotFoundException e) {
+            	e.printStackTrace();
                 in = Thread.currentThread().getContextClassLoader().getResourceAsStream(sourceFile);
             }
             saxParser.parse(in, rsh);

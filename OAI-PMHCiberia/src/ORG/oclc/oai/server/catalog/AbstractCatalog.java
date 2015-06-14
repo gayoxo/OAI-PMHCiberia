@@ -68,7 +68,8 @@ public abstract class AbstractCatalog {
      */
     private static final String[] VALID_GRANULARITIES = {
         "YYYY-MM-DD",
-        "YYYY-MM-DDThh:mm:ssZ"
+        "YYYY-MM-DDThh:mm:ssZ",
+        "YYYY"
     };
 
     /**
@@ -76,7 +77,8 @@ public abstract class AbstractCatalog {
      */
     private static final String[] FROM_GRANULARITIES = {
         "0000-01-01",
-        "0000-01-01T00:00:00Z"
+        "0000-01-01T00:00:00Z",
+        "0000"
     };
 
     /**
