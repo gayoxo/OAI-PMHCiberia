@@ -72,6 +72,10 @@ public class XMLFileOAICatalog extends AbstractCatalog {
     private Transformer getMetadataTransformer = null;
     private boolean schemaLocationIndexed = false;
 
+	private String sourceFile;
+
+	private String Server_Path;
+
     public XMLFileOAICatalog(Properties properties,ServletContext context) throws IOException {
         try {
             String          temp;
@@ -89,10 +93,12 @@ public class XMLFileOAICatalog extends AbstractCatalog {
                 System.out.println("in XMLFileOAICatalog(): maxListSize="+
                                    maxListSize);
             
-            String sourceFile=properties.getProperty("XMLFileOAICatalog.sourceFile");
+            sourceFile=properties.getProperty("XMLFileOAICatalog.sourceFile");
             if (sourceFile==null)
-                throw new IllegalArgumentException("XMLFileOAICatalog."+
+                {
+            	throw new IllegalArgumentException("XMLFileOAICatalog."+
                                                    "sourceFile is missing from the properties file");
+                }
             if(debug)
                 System.out.println("in XMLFileOAICatalog(): sourceFile="+
                                    sourceFile);
@@ -121,7 +127,8 @@ public class XMLFileOAICatalog extends AbstractCatalog {
             SAXParser saxParser = factory.newSAXParser();
             InputStream in;
             try {
-                in = new FileInputStream(context.getRealPath("/")+sourceFile);
+            	Server_Path=context.getRealPath("/");
+                in = new FileInputStream(Server_Path+sourceFile);
             } catch (FileNotFoundException e) {
             	e.printStackTrace();
                 in = Thread.currentThread().getContextClassLoader().getResourceAsStream(sourceFile);
@@ -170,6 +177,7 @@ public class XMLFileOAICatalog extends AbstractCatalog {
     public String getRecord(String oaiIdentifier, String metadataPrefix)
         throws IdDoesNotExistException, CannotDisseminateFormatException,
                OAIInternalServerError {
+    	RefreshData();
         String localIdentifier
             = getRecordFactory().fromOAIIdentifier(oaiIdentifier);
         String recordid = localIdentifier;
@@ -184,7 +192,39 @@ public class XMLFileOAICatalog extends AbstractCatalog {
     }
 
 
-    /**
+    private void RefreshData() throws OAIInternalServerError {
+    	try{
+    	RecordStringHandler rsh = new RecordStringHandler();
+        SAXParserFactory factory = SAXParserFactory.newInstance();
+        factory.setNamespaceAware(true);
+        factory.setFeature("http://xml.org/sax/features/namespace-prefixes", true);
+        SAXParser saxParser = factory.newSAXParser();
+        InputStream in;
+        try {
+            in = new FileInputStream(Server_Path+sourceFile);
+        } catch (FileNotFoundException e) {
+        	e.printStackTrace();
+            in = Thread.currentThread().getContextClassLoader().getResourceAsStream(sourceFile);
+        }
+        saxParser.parse(in, rsh);
+//        saxParser.parse(new File(sourceFile), rsh);
+        
+        // build the indexes
+        nativeMap = rsh.getNativeRecords();
+    	} catch (SAXException e) {
+            e.printStackTrace();
+            throw new OAIInternalServerError(e.getMessage());
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+            throw new OAIInternalServerError(e.getMessage());
+        } catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	/**
      * get a DocumentFragment containing the specified record
      */
     public String getMetadata(String oaiIdentifier, String metadataPrefix)

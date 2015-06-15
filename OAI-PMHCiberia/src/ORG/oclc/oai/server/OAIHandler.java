@@ -107,6 +107,7 @@ public class OAIHandler extends HttpServlet {
                 InputStream in;
                 try {
                     log.debug("fileName=" + fileName);
+                    System.out.println(context.getRealPath("/"));
                     in = new FileInputStream(context.getRealPath("/")+fileName);
                 } catch (FileNotFoundException e) {
                     log.debug("file not found. Try the classpath: " + fileName);
