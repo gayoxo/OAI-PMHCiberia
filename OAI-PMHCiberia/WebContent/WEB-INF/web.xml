@@ -81,8 +81,8 @@
         name of the action class that will be used to process this request.
       </description>
       <servlet-class>ORG.oclc.oai.server.OAIHandler</servlet-class>
-      <!-- Load this servlet at server startup time -->
-      <load-on-startup>5</load-on-startup>
+      <!-- Load this servlet at server startup time
+      <load-on-startup>5</load-on-startup> -->
     </servlet>
 
     <!-- Define mappings that are used by the servlet container to
