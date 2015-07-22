@@ -24,33 +24,11 @@ import ORG.oclc.oai.util.OAIUtil;
  */
 public class JDBC2MODS extends Crosswalk {
     private String separator = null;
-    private String dcTitleLabel = null;
-    private String SubTitleLabel = null;
-    private String PartNumberLabel = null;
-    private String PartNameLabel = null;
-    private String NonSortLabel = null;
-    private String NamePart = null;
-    private String DisplayForm = null;
-    private String Affiliation = null;
-    private String RoleTerm = null;
-    private String Description = null;
-    private String Etal = null;
-    private String TypeOfResource = null;
+    private String modsTitleInfo = null;
+    private String modsNameInfo = null;
+    private String modsgenreInfo = null;
+    private String modsabstract = null;
     
-    private String dcCreatorLabel = null;
-    private String dcSubjectLabel = null;
-    private String dcDescriptionLabel = null;
-    private String dcPublisherLabel = null;
-    private String dcContributorLabel = null;
-    private String dcDateLabel = null;
-    private String dcTypeLabel = null;
-    private String dcFormatLabel = null;
-    private String dcIdentifierLabel = null;
-    private String dcSourceLabel = null;
-    private String dcLanguageLabel = null;
-    private String dcRelationLabel = null;
-    private String dcCoverageLabel = null;
-    private String dcRightsLabel = null;
     
     /**
      * The constructor assigns the schemaLocation associated with this crosswalk. Since
@@ -61,19 +39,11 @@ public class JDBC2MODS extends Crosswalk {
     public JDBC2MODS(Properties properties) {
         super("http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd");
         
-        dcTitleLabel = (String)properties.get("JDBC2MODS.modsTitleLabel");
-        SubTitleLabel = (String)properties.get("JDBC2MODS.modsSubTitleLabel");
-        PartNumberLabel = (String)properties.get("JDBC2MODS.modsPartNumberLabel");
-        PartNameLabel = (String)properties.get("JDBC2MODS.modsPartNameLabel");
-        NonSortLabel = (String)properties.get("JDBC2MODS.modsNonSortLabel");
+        modsTitleInfo = (String)properties.get("JDBC2MODS.modsTitleInfoLabel");
+        modsNameInfo = (String)properties.get("JDBC2MODS.modsNameLabel");
+        modsgenreInfo = (String)properties.get("JDBC2MODS.modsgenreLabel");
         
-        NamePart = (String)properties.get("JDBC2MODS.modsNamePartLabel");
-        DisplayForm = (String)properties.get("JDBC2MODS.modsDisplayFormLabel");
-        Affiliation = (String)properties.get("JDBC2MODS.modsAffiliationLabel");
-        RoleTerm = (String)properties.get("JDBC2MODS.modsRoleTermLabel");
-        Description = (String)properties.get("JDBC2MODS.modsDescriptionLabel");
-        Etal = (String)properties.get("JDBC2MODS.modsEtalLabel");
-        TypeOfResource = (String)properties.get("JDBC2MODS.modsTypeOfResourceLabel");
+        modsabstract = (String)properties.get("JDBC2MODS.modsabstractLabel");
         
         separator = (String)properties.get("JDBC2MODS.separator");
    /*     dcCreatorLabel = (String)properties.get("JDBC2oai_dc.dcCreatorLabel");
@@ -117,65 +87,11 @@ public class JDBC2MODS extends Crosswalk {
         StringBuffer sb = new StringBuffer();
         sb.append("<mods xmlns=\"http://www.loc.gov/mods/v3\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xsi:schemaLocation=\"http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-1.xsd\">\n");
         
-        {
-        StringBuffer sbt=new StringBuffer();
-        sbt.append(getElements(table, dcTitleLabel, "title", ""));
-        sbt.append(getElements(table, SubTitleLabel, "subTitle", ""));
-        sbt.append(getElements(table, PartNumberLabel, "partNumber", ""));
-        sbt.append(getElements(table, PartNameLabel, "partName", ""));
-        sbt.append(getElements(table, NonSortLabel, "nonSort", ""));
-        if (sbt.length()>0)
-        	{
-        	sb.append("<titleinfo>");
-        	sb.append(sbt.toString());
-        	sb.append("</titleinfo>");
-        	}
-        }
+        sb.append(getElements(table, modsTitleInfo, "titleinfo", ""));
+        sb.append(getElements(table, modsNameInfo, "name", ""));
+        sb.append(getElements(table, modsgenreInfo, "genre", ""));
         
-        //name
-        {
-        StringBuffer sbt=new StringBuffer();
-        sbt.append(getElements(table, NamePart, "namePart", ""));
-        sbt.append(getElements(table, DisplayForm, "displayForm", ""));
-        sbt.append(getElements(table, Affiliation, "affiliation", ""));
-        	{
-        		StringBuffer sbt2=new StringBuffer();
-        		sbt2.append(getElements(table, RoleTerm, "roleTerm", " type=\"code\" authority=\"marcrelator\" "));
-        		if (sbt2.length()>0)
-            	{
-        			sbt.append("<role>");
-        			sbt.append(sbt2.toString());
-        			sbt.append("</role>");
-            	}	
-        	}
-        sbt.append(getElements(table, Description, "description", ""));
-        sbt.append(getElements(table, Etal, "etal", ""));
-        if (sbt.length()>0)
-        	{
-        	sb.append("<name  authority=\"local\">");
-        	sb.append(sbt.toString());
-        	sb.append("</name>");
-        	}	
-        }
-        
-        sb.append(getElements(table, TypeOfResource, "typeofresource", ""));
-        
-        /*
-        sb.append(getElements(table, dcCreatorLabel, "dc:creator"));
-        sb.append(getElements(table, dcSubjectLabel, "dc:subject"));
-        sb.append(getElements(table, dcDescriptionLabel, "dc:description"));
-        sb.append(getElements(table, dcPublisherLabel, "dc:publisher"));
-        sb.append(getElements(table, dcContributorLabel, "dc:contributor"));
-        sb.append(getElements(table, dcDateLabel, "dc:date"));
-        sb.append(getElements(table, dcTypeLabel, "dc:type"));
-        sb.append(getElements(table, dcFormatLabel, "dc:format"));
-        sb.append(getElements(table, dcIdentifierLabel, "dc:identifier"));
-        sb.append(getElements(table, dcSourceLabel, "dc:source"));
-        sb.append(getElements(table, dcLanguageLabel, "dc:language"));
-        sb.append(getElements(table, dcRelationLabel, "dc:relation"));
-        sb.append(getElements(table, dcCoverageLabel, "dc:coverage"));
-        sb.append(getElements(table, dcRightsLabel, "dc:rights"));
-        */
+        sb.append(getElements(table, modsabstract, "abstract", ""));
         
         sb.append("</mods>\n");
         return sb.toString();
