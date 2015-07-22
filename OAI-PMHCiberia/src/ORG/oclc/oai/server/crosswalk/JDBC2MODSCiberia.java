@@ -22,7 +22,7 @@ import ORG.oclc.oai.util.OAIUtil;
  * be present in the <metadata> element. The "crosswalk", merely
  * involves pulling out the one that is requested.
  */
-public class JDBC2MODS extends Crosswalk {
+public class JDBC2MODSCiberia extends Crosswalk {
     private String separator = null;
     private String modsTitleInfo = null;
     private String modsNameInfo = null;
@@ -52,7 +52,7 @@ public class JDBC2MODS extends Crosswalk {
      *
      * @param properties properties that are needed to configure the crosswalk.
      */
-    public JDBC2MODS(Properties properties) {
+    public JDBC2MODSCiberia(Properties properties) {
         super("http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd");
         
         modsTitleInfo = (String)properties.get("JDBC2MODS.modsTitleInfoLabel");
@@ -105,7 +105,7 @@ public class JDBC2MODS extends Crosswalk {
         sb.append("<mods xmlns=\"http://www.loc.gov/mods/v3\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xsi:schemaLocation=\"http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-1.xsd\">\n");
         
         sb.append(getElements(table, modsTitleInfo, "titleinfo", ""));
-        sb.append(getElements(table, modsNameInfo, "name", ""));
+        sb.append(getElements(table, modsNameInfo, "name", "  authority=\"local\" "));
         sb.append(getElements(table, modstypeOfResource, "typeOfResource", ""));
         sb.append(getElements(table, modsgenreInfo, "genre", ""));
         sb.append(getElements(table, modsoriginInfo, "originInfo", ""));
@@ -117,8 +117,8 @@ public class JDBC2MODS extends Crosswalk {
         sb.append(getElements(table, modsnote, "note", ""));
         sb.append(getElements(table, modssubject, "subject", ""));
         sb.append(getElements(table, modsclassification, "classification", ""));
-        sb.append(getElements(table, modsrelatedItem, "relatedItem", ""));
-        sb.append(getElements(table, modsidentifier, "identifier", ""));
+        sb.append(getElements(table, modsrelatedItem, "relatedItem", " type=\"host\" "));
+        sb.append(getElements(table, modsidentifier, "identifier", "  type=\"uri\" "));
         sb.append(getElements(table, modslocation, "location", ""));
         sb.append(getElements(table, modsaccessCondition, "accessCondition", ""));
         sb.append(getElements(table, modspart, "part", ""));
