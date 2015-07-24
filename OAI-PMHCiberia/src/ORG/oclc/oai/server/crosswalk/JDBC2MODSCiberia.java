@@ -139,12 +139,14 @@ public class JDBC2MODSCiberia extends Crosswalk {
                 String[] values = jdbcObject.toString().split(separator);
                 for (int i=0; i<values.length; ++i) {
                //     sb.append("<").append(elementLabel).append(extra).append(">");
+               // 	sb.append(values[i]);
                     sb.append(OAIUtil.xmlEncode(values[i]));
                //     sb.append("</").append(elementLabel).append(">\n");
                 }
             } else {
                // sb.append("<").append(elementLabel).append(">");
-                sb.append(OAIUtil.xmlEncode(jdbcObject.toString()));
+               //sb.append(jdbcObject.toString());
+            	sb.append(OAIUtil.xmlEncode(jdbcObject.toString()));
                // sb.append("</").append(elementLabel).append(">\n");
             }
         }

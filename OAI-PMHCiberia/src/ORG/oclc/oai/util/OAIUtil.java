@@ -57,15 +57,15 @@ public class OAIUtil {
             case '&':
                 sb.append("&amp;");
                 break;
-            case '<':
-                sb.append("&lt;");
-                break;
-            case '>':
-                sb.append("&gt;");
-                break;
-            case '"':
-                sb.append("&quot;");
-                break;
+//            case '<':
+//                sb.append("&lt;");
+//                break;
+//            case '>':
+//                sb.append("&gt;");
+//                break;
+//            case '"':
+//                sb.append("&quot;");
+//                break;
             case '\'':
                 sb.append("&apos;");
                 break;
