@@ -102,7 +102,7 @@ public class JDBC2MODSCiberia extends Crosswalk {
     public String createMetadata(Object nativeItem) {
         HashMap table = (HashMap)nativeItem;
         StringBuffer sb = new StringBuffer();
-        sb.append("<mods xmlns=\"http://www.loc.gov/mods/v3\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xsi:schemaLocation=\"http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-1.xsd\">\n");
+        sb.append("<mods xmlns=\"http://www.loc.gov/mods/v3\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xsi:schemaLocation=\"http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-1.xsd\">\n");
         
         sb.append(getElements(table, modsTitleInfo));
         sb.append(getElements(table, modsNameInfo));
