@@ -104,7 +104,7 @@ public class JDBC2MODS extends Crosswalk {
         StringBuffer sb = new StringBuffer();
         sb.append("<mods xmlns=\"http://www.loc.gov/mods/v3\"  xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xsi:schemaLocation=\"http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-1.xsd\">\n");
         
-        sb.append(getElements(table, modsTitleInfo, "titleinfo", ""));
+        sb.append(getElements(table, modsTitleInfo, "titleInfo", ""));
         sb.append(getElements(table, modsNameInfo, "name", ""));
         sb.append(getElements(table, modstypeOfResource, "typeOfResource", ""));
         sb.append(getElements(table, modsgenreInfo, "genre", ""));
